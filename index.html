@@ -536,6 +536,96 @@
       gap: 12px;
     }
 
+    /* SUPPORT / UPI PAYMENT */
+
+    .support-box {
+      max-width: 780px;
+      margin: 40px auto 0;
+
+      padding: 50px 30px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(135deg,
+          rgba(56, 189, 248, 0.08),
+          rgba(15, 32, 53, 1));
+
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .support-box h3 {
+      font-size: clamp(26px, 4vw, 32px);
+      margin-bottom: 12px;
+    }
+
+    .support-sub {
+      max-width: 560px;
+      margin: 0 auto 30px;
+
+      color: var(--muted);
+    }
+
+    .qr-code-wrap {
+      display: inline-block;
+
+      padding: 14px;
+      margin-bottom: 24px;
+
+      background: #ffffff;
+      border-radius: 14px;
+    }
+
+    .qr-code-wrap img {
+      display: block;
+      width: 180px;
+      height: 180px;
+    }
+
+    .upi-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      margin-bottom: 26px;
+    }
+
+    .upi-id-box {
+      padding: 11px 18px;
+
+      color: #7dd3fc;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+    }
+
+    .copy-btn {
+      padding: 11px 18px;
+
+      color: var(--primary);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+
+      background: transparent;
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .copy-btn:hover {
+      color: #04111c;
+      background: var(--primary);
+    }
+
     /* FOOTER */
 
     footer {
@@ -615,6 +705,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Work</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="#support">Support</a></li>
     </ul>
 
   </nav>
@@ -904,7 +995,7 @@
 
           <div class="project-buttons">
 
-            <a href="https://chandanraj-dev.github.io/MY-wordbook/" target="_blank" rel="noopener noreferrer"
+            <a href="https://mywordbook.netlify.app/" target="_blank" rel="noopener noreferrer"
               class="small-btn primary">
               Live Website ↗
             </a>
@@ -954,7 +1045,7 @@
 
           <div class="project-buttons">
 
-            <a href="https://github.com/Devil-65" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/chandanraj-dev" target="_blank" rel="noopener noreferrer"
               class="small-btn secondary">
               View GitHub
             </a>
@@ -992,7 +1083,7 @@
           Email Me
         </a>
 
-        <a href="https://github.com/Devil-65" target="_blank" rel="noopener noreferrer" class="btn secondary">
+        <a href="https://github.com/chandanraj-dev" target="_blank" rel="noopener noreferrer" class="btn secondary">
           GitHub
         </a>
 
@@ -1007,6 +1098,43 @@
   </section>
 
 
+  <!-- SUPPORT / UPI PAYMENT -->
+
+  <section id="support" class="contact">
+
+    <div class="support-box">
+
+      <h3>
+        Support My Work
+      </h3>
+
+      <p class="support-sub">
+        If you'd like to make a payment or support my work,
+        scan the QR code below or pay directly using my UPI ID.
+      </p>
+
+      <div class="qr-code-wrap">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi%3A%2F%2Fpay%3Fpa%3D7340128946%2540slc%26pn%3DChandan%2520Raj%26cu%3DINR"
+          alt="UPI QR code for 7340128946@slc" width="180" height="180">
+      </div>
+
+      <div class="upi-row">
+        <span class="upi-id-box" id="upiIdText">7340128946@slc</span>
+        <button type="button" class="copy-btn" onclick="copyUPI()">
+          Copy UPI ID
+        </button>
+      </div>
+
+      <a href="upi://pay?pa=7340128946@slc&pn=Chandan%20Raj&cu=INR" class="btn primary">
+        Pay via UPI
+      </a>
+
+    </div>
+
+  </section>
+
+
   <!-- FOOTER -->
 
   <footer>
@@ -1015,13 +1143,40 @@
       © 2026 Chandan Raj ·
       Built with HTML, CSS & JavaScript ·
 
-      <a href="https://github.com/Devil-65" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/chandanraj-dev" target="_blank" rel="noopener noreferrer">
         GitHub
       </a>
 
     </p>
 
   </footer>
+
+  <script>
+    function copyUPI() {
+      var upiId = document.getElementById('upiIdText').textContent.trim();
+      var btn = document.querySelector('.copy-btn');
+      var original = btn.textContent;
+
+      function showCopied() {
+        btn.textContent = 'Copied!';
+        setTimeout(function () {
+          btn.textContent = original;
+        }, 1800);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(upiId).then(showCopied);
+      } else {
+        var temp = document.createElement('textarea');
+        temp.value = upiId;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        showCopied();
+      }
+    }
+  </script>
 
 </body>
 
